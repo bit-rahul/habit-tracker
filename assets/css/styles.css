@@ -1,0 +1,197 @@
+* {
+    margin    : 0;
+    padding   : 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #e27442;
+    overflow-y: auto;
+}
+
+.habit-container {
+    color         : white;
+    position      : absolute;
+    top           : 350px;
+    left          : 50%;
+    padding       : 20px;
+    width         : 1000px;
+    transform     : translate(-50%, -50%);
+    background    : rgba(255, 255, 255, 0.1);
+    border-radius : 20px;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    overflow-y    : auto;
+}
+
+.habit {
+    width: 900px;
+}
+
+.habit-container h2 {
+    padding    : 10px;
+    font-family: 'Candal', sans-serif;
+    font-size  : 2em;
+}
+
+.habit-header input {
+    width        : 54%;
+    border       : none;
+    border-radius: 5px;
+    height       : 40px;
+    font-family  : 'Candal', sans-serif;
+}
+
+.habit-header .add-btn {
+    color           : white;
+    border          : none;
+    border-radius   : 50%;
+    cursor          : pointer;
+    padding         : 8px 13px;
+    font-family     : 'Candal', sans-serif;
+    background-color: rgb(51, 212, 100);
+}
+
+.habit-container ul {
+    list-style: none;
+}
+
+.habit-list-item {
+    padding       : 10px;
+    margin-top    : 10px;
+    border        : none;
+    border-radius : 5px;
+    font-family   : 'Candal', sans-serif;
+    background    : rgba(0, 0, 0, 0.33);
+    display       : flex;
+    flex-direction: row;
+}
+
+.habit-list-item form {
+    width  : 100%;
+    display: flex;
+}
+
+.habit-list-item input {
+    flex-grow    : 2;
+    margin-right : 20px;
+    border       : none;
+    border-radius: 5px;
+    font-family  : 'Candal', sans-serif;
+}
+
+.habit-list-item button {
+    color           : white;
+    border          : none;
+    border-radius   : 5px;
+    cursor          : pointer;
+    padding         : 5px;
+    font-family     : 'Candal', sans-serif;
+    background-color: rgb(51, 212, 100);
+}
+
+.habit-list-item .cancel {
+    color           : white;
+    text-decoration : none;
+    border          : none;
+    border-radius   : 5px;
+    cursor          : pointer;
+    padding         : 5px;
+    font-family     : 'Candal', sans-serif;
+    background-color: #E53C37;
+    margin-left     : 5px;
+}
+
+.habit-list-item .favorite {
+    color          : white;
+    text-decoration: none;
+    cursor         : pointer;
+    font-family    : 'Candal', sans-serif;
+    color          : gold;
+    margin-right   : 10px;
+    margin-top     : 2.5px;
+    font-size      : 18px;
+}
+
+.habit-list-item div {
+    flex-grow : 2;
+    margin-top: 2.5px;
+}
+
+.habit-list-item .edit {
+    color          : rgb(143, 233, 58);
+    margin-right   : 10px;
+    cursor         : pointer;
+    text-decoration: none;
+}
+
+.habit-list-item .status {
+    margin-top: 2.5px;
+}
+
+.habit-list-item .remove {
+    color          : #E53C37;
+    margin-right   : 5px;
+    cursor         : pointer;
+    text-decoration: none;
+    font-size      : 20px;
+}
+
+.status .fa-check-circle {
+    color: rgb(143, 233, 58);
+}
+
+.status .fa-times-circle {
+    color: #E53C37;
+}
+
+.status .fa-minus-circle {
+    color: gold;
+}
+
+.status2 .fa-check-circle {
+    color    : rgb(143, 233, 58);
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.status2 .fa-times-circle {
+    color    : #E53C37;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.status2 .fa-minus-circle {
+    color    : gold;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+
+/*
+  Weekly calendar stylings
+*/
+
+.dotw {
+    display         : inline-block;
+    margin-left     : 3%;
+    margin-right    : 3%;
+    margin-bottom   : 12px;
+    position        : relative;
+    width           : 50px;
+    height          : 60px;
+    background-color: #FFFFFA;
+    text-align      : center;
+    font-family     : Oswald, sans-serif;
+    font-size       : 10pt;
+    border-radius   : 3px;
+    box-shadow      : 3px 3px 1px grey;
+    overflow        : hidden;
+    user-select     : none;
+}
+
+.day {
+    width           : 100%;
+    background-color: #E54B4B;
+}

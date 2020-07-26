@@ -1,0 +1,119 @@
+<!-- Dashboard view -->
+<!-- Header -->
+<div class="row ml-5 fixed-top">
+    <div class="col-md-8">
+        <h1 class="mt-4" style="color: white;">Habit Tracker</h1>
+    </div>
+    <div class="col-md-2 mt-4">
+        <p class="lead float-right mb-3" style="color: white;">Welcome <%= user.name %></p>
+    </div>
+    <div class="col-md-2 mt-4">
+        <a href="/users/logout" class="btn btn-secondary">Logout</a>
+    </div>
+</div>
+<!-- Habit Container -->
+<div class="habit-container text-center">
+    <h2>Start with a new habit today!</h2>
+    <form action="/user-view" method="POST" class="habit-header">
+        <div class="btn-group mb-4" aria-label="Change View">
+            <% if(user.view === "daily"){ %>
+            <button type="submit" class="btn btn-primary active" aria-pressed="true">Daily</button>
+            <button type="submit" class="btn btn-primary">Weekly</button>
+            <% } else { %>
+            <button type="submit" class="btn btn-primary">Daily</button>
+            <button type="submit" class="btn btn-primary active" aria-pressed="true">Weekly</button>
+            <% } %>
+        </div>
+    </form>
+    <%- include ("./partials/messages") %>
+    <div class="habit">
+        <form action="/dashboard" method="POST" class="habit-header mb-4">
+            <input type="text" name="content" required>
+            <button type="submit" class="add-btn"><span class="fas fa-plus"></span></button>
+        </form>
+        <i class="fas fa-check-circle" style="color: rgb(143, 233, 58);"></i>
+        -Done&emsp;&emsp;
+        <i class="fas fa-times-circle" style="color: #E53C37;"></i>
+        -Not Done&emsp;&emsp;
+        <i class="fas fa-minus-circle" style="color: gold;"></i>
+        -Unmarked&emsp;&emsp;
+        <% if(user.view === "daily"){ %>
+        <ul class="habit-list">
+            <% habits.forEach(details => { let tzoffset = (new Date()).getTimezoneOffset() * 60000, found=false, status='';
+                var today = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
+                details.dates.find(function (item, index) {
+                    if(item.date === today)
+                    {
+                        found = true;
+                        status = item.complete;
+                    }
+                });
+                %>
+            <li class="habit-list-item">
+                <a href="status-update/?id=<%= details._id %>&date=<%= today %>" class="status">
+                    <% if(found && status==='yes'){ %>
+                    <i class="fas fa-check-circle"></i>
+                    <% } else if(found && status==='no'){ %>
+                    <i class="fas fa-times-circle"></i>
+                    <% } else { %>
+                    <i class="fas fa-minus-circle"></i>
+                    <% } %>
+                </a>
+                &emsp;
+                <div class="habit-list-item-name"><%= details.content %></div>
+                <a href="/favorite-habit/?id=<%= details._id %>" class="favorite">
+                    <% if(details.favorite) { %>
+                    <i class="fas fa-star"></i>
+                    <% } else { %>
+                    <i class="far fa-star"></i>
+                    <% } %>
+                </a>
+                <a href="/remove/?id=<%= details._id %>" class="remove">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </li>
+            <% }) %>
+        </ul>
+        <% } else { %>
+        <ul class="habit-list text-center">
+            <% habits.forEach(details => { %>
+            <li class="habit-list-item">
+                <div class="habit-list-item-name"><%= details.content %></div>
+                <a href="/favorite-habit/?id=<%= details._id %>" class="favorite">
+                    <% if(details.favorite) { %>
+                    <i class="fas fa-star"></i>
+                    <% } else { %>
+                    <i class="far fa-star"></i>
+                    <% } %>
+                </a>
+                <a href="/remove/?id=<%= details._id %>" class="remove">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+                <% days.forEach(day => { let found = false, status = '';
+                details.dates.find(function (item, index) {
+                    if(item.date === day.date)
+                    {
+                        found = true;
+                        status = item.complete;
+                    }
+                });
+                %>
+                <div class="dotw">
+                    <div class="day mt-0"><span><%= day.day + ", " + day.date.slice(-2) %></span></div>
+                    <a href="status-update/?id=<%= details._id %>&date=<%= day.date %>" class="status2 mt-4">
+                        <% if(found && status==='yes'){ %>
+                        <i class="fas fa-check-circle"></i>
+                        <% } else if(found && status==='no'){ %>
+                        <i class="fas fa-times-circle"></i>
+                        <% } else { %>
+                        <i class="fas fa-minus-circle"></i>
+                        <% } %>
+                    </a>
+                </div>
+                <% }) %>
+            </li>
+            <% }) %>
+        </ul>
+        <% } %>
+    </div>
+</div>
