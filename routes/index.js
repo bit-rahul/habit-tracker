@@ -20,16 +20,14 @@ router.get('/dashboard', (req, res) => {
         }, (err, habits) => {
             if (err) console.log(err);
             else {
-                var curr = new Date;
-                var main = curr.getDate() - curr.getDay();
                 var days = [];
-                days.push(getD(new Date(curr.setDate(main))));
-                days.push(getD(new Date(curr.setDate(main + 1))));
-                days.push(getD(new Date(curr.setDate(main + 2))));
-                days.push(getD(new Date(curr.setDate(main + 3))));
-                days.push(getD(new Date(curr.setDate(main + 4))));
-                days.push(getD(new Date(curr.setDate(main + 5))));
-                days.push(getD(new Date(curr.setDate(main + 6))));
+                days.push(getD(0));
+                days.push(getD(1));
+                days.push(getD(2));
+                days.push(getD(3));
+                days.push(getD(4));
+                days.push(getD(5));
+                days.push(getD(6));
                 res.render('dashboard', { habits, user, days });
             }
         });
@@ -38,8 +36,10 @@ router.get('/dashboard', (req, res) => {
 );
 
 //------------------Function to return date string--------------//
-function getD(d) {
-    var newDate = d.toISOString().slice(0, 10);
+function getD(n) {
+    let d = new Date();
+    d.setDate(d.getDate() + n);
+    var newDate = d.toLocaleDateString('pt-br').split( '/' ).reverse( ).join( '-' );
     var day;
     switch (d.getDay()) {
         case 0: day = 'Sun';
@@ -85,7 +85,6 @@ router.post('/dashboard', (req, res) => {
 
     Habit.findOne({ content: content, email: email }).then(habit => {
         if (habit) {
-            console.log("hey1");
             //---------Update existing habit----------//
             let dates = habit.dates, tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var today = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
@@ -111,7 +110,6 @@ router.post('/dashboard', (req, res) => {
             });
         }
         else {
-            console.log("hey");
             let dates = [], tzoffset = (new Date()).getTimezoneOffset() * 60000;
             var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 10);
             dates.push({ date: localISOTime, complete: 'none' });
