@@ -10,6 +10,7 @@
 4.  MongoDB
 
 ## Prerequisites
+- MongoDB
 - Git
 - NodeJS
 - CLI
